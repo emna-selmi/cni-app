@@ -12,7 +12,7 @@ Ces configurations doivent être appliquées dans le dossier `backend-project/`.
 
 
 
-\### .env (Local Configuration)
+\### .env (Configuration Locale - À NE PAS PARTAGER)
 
 ```env
 
@@ -20,7 +20,7 @@ APP\_NAME=Laravel
 
 APP\_ENV=local
 
-APP\_KEY=base64:SPSf45HJIoKBjp872Gyu7nCwPM/6z6YJ9oC7MMObLcA=
+APP\_KEY=            # Lancer 'php artisan key:generate'
 
 APP\_DEBUG=true
 
@@ -44,11 +44,11 @@ DB\_PASSWORD=
 
 
 
-JWT\_SECRET=wFWIsaWyf81P7fuOgr2Tl4FnUQ6PekRL5WW4HyK7HNEBYuvBqt3AYxIjmeDvqzLO
+JWT\_SECRET=         # Lancer 'php artisan jwt:secret'
 
 
 
-GEMINI\_API\_KEY=AIzaSyAYJlwH\_UfBAFecoKWnY42HagbjwzFau1M
+GEMINI\_API\_KEY=     # Mettez votre propre clé API ici
 
 GEMINI\_MODEL=gemini-2.5-flash
 
