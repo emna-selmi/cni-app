@@ -1,0 +1,74 @@
+<div class="chat-launcher" (click)="toggleChat()" [class.active]="isOpen">
+  <span *ngIf="!isOpen">💬</span>
+  <span *ngIf="isOpen">✖</span>
+</div>
+
+<div class="chat-container" *ngIf="isOpen" [class.history-open]="showHistory">
+
+  <!-- Sidebar Historique -->
+  <div class="sidebar" *ngIf="showHistory">
+    <div class="sidebar-header">
+      <span>Historique</span>
+      <button (click)="startNewChat()" class="btn-plus">+</button>
+    </div>
+    <div class="history-list">
+      <div *ngFor="let conv of history" class="history-item" [class.active]="activeConversation?.id === conv.id">
+        <span (click)="selectConversation(conv)" class="title">{{ conv.title }}</span>
+        <button (click)="deleteConv(conv.id)" class="btn-delete">🗑</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Chat -->
+  <div class="chat-main">
+    <div class="chat-header">
+      <button (click)="toggleHistory()" class="btn-history">☰</button>
+      <div class="chat-info">
+        <strong>ProjectBot</strong>
+        <small>Agent Flash 2.5 (RAG)</small>
+      </div>
+      <div *ngIf="activeConversation" class="remaining">
+        💬 Messages restants : {{ remainingMessages }}
+      </div>
+      <button (click)="toggleChat()" class="btn-close">×</button>
+    </div>
+
+    <!-- Messages Area -->
+    <div class="messages-area" #scrollMe>
+      <div *ngIf="!activeConversation" class="empty-state">
+        <p>Sélectionnez une conversation ou commencez-en une nouvelle pour analyser vos projets.</p>
+        <button (click)="startNewChat()" class="btn-start">Nouveau Chat</button>
+      </div>
+
+      <div *ngIf="activeConversation">
+        <div *ngFor="let msg of activeConversation.messages" [ngClass]="msg.role" class="message-wrapper">
+          <div class="bubble">
+            <markdown *ngIf="msg.role === 'model'" [data]="msg.content"></markdown>
+            <span *ngIf="msg.role === 'user'">{{ msg.content }}</span>
+          </div>
+        </div>
+
+        <!-- Typing indicator -->
+        <div *ngIf="isTyping" class="model message-wrapper">
+          <div class="bubble typing-dots">
+            <span>.</span><span>.</span><span>.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Input Area -->
+    <div class="input-area" *ngIf="activeConversation">
+      <input 
+        [(ngModel)]="userInput" 
+        (keyup.enter)="send()" 
+        placeholder="Poser une question" 
+        type="text"
+        [disabled]="isTyping || remainingMessages <= 0">
+      <button (click)="send()" [disabled]="!userInput.trim() || isTyping || remainingMessages <= 0">
+        <span *ngIf="!isTyping">➤</span>
+        <span *ngIf="isTyping">...</span>
+      </button>
+    </div>
+  </div>
+</div>

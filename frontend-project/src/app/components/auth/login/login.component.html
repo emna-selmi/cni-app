@@ -1,0 +1,22 @@
+<div class="login-container">
+  <div class="login-card">
+    <img src="https://votre-url-logo-cni.com/logo.png" alt="Logo CNI" class="logo">
+    <h2>Connexion - Gestion de Projets</h2>
+    
+    <form (ngSubmit)="onLogin()">
+      <div class="form-group">
+        <label>Email professionnel</label>
+        <input type="email" [(ngModel)]="creds.email" name="email" required placeholder="nom@cni.tn">
+      </div>
+
+      <div class="form-group">
+        <label>Mot de passe</label>
+        <input type="password" [(ngModel)]="creds.password" name="password" required>
+      </div>
+
+      <button type="submit" class="btn-primary">Se connecter</button>
+    </form>
+    
+    <p>Pas encore de compte ? <a routerLink="/register">S'inscrire</a></p>
+  </div>
+</div>

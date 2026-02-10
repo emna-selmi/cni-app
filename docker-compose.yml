@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  backend-api:
+    build: ./backend-project
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mysql-db
+    environment:
+      - DB_HOST=mysql-db
+      - DB_DATABASE=project_management
+      - DB_USERNAME=root
+      - DB_PASSWORD=root_password
+
+  frontend-dashboard:
+    build: ./frontend-project
+    ports:
+      - "4200:80"
+
+  mysql-db:
+    image: mysql:8.0
+    environment:
+      - MYSQL_DATABASE=project_management
+      - MYSQL_ROOT_PASSWORD=root_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:

@@ -1,0 +1,23 @@
+<div class="container">
+  <h2>Gestion des Utilisateurs CNI</h2>
+  
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Email</th>
+        <th>Rôle</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let u of userService.users()">
+  <td>{{ u.nom }}</td>
+  <td>{{ u.email }}</td>
+  <td>{{ u.role }}</td>
+  <td>
+    <button (click)="delete(u.id_user!)">Supprimer</button>
+  </td>
+</tr>
+    </tbody>
+  </table>
+</div>
